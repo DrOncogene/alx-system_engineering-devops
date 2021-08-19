@@ -1,6 +1,2 @@
 #!/bin/bash
-owner=$(stat -c '%U' hello)
-if [ $owner = guillaume ]
-then
-	chown betty hello
-fi
+chown --from=guillaume betty hello
