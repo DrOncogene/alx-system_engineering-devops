@@ -1,2 +1,2 @@
 #!/bin/bash
-cut -f 1 -d ' ' | cut -b 1 | tr -d '\n' && echo -e '\n'
+echo $(cut -f 1 -d ' ' | cut -b 1 | tr -d '\n')
