@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -name \*.gif -type f -execdir sh -c 'printf "%s\n" "${0%.*}"' {} ';' | cut -d '/' -f 2 | sort -fn
+find . -name \*.gif -exec bash -c 'printf "%s\n" "${@%.*}"' _ {} + | cut -d '/' -f 2 | sort -fn
