@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-"prints a 12 hour clock"
+# prints a 12 hour clock
 hour=0
 min=1
 while [ $hour -le 12 ]
