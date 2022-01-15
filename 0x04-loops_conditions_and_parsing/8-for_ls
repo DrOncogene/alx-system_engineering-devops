@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# prints a formatted list of file in the current dir
+files=$( ls )
+for file in $files
+do
+	i=1
+	for letter in $file
+	do
+		((i++))
+		if [ "$letter" == '-' ]
+		then
+			break
+		fi
+	done
+	echo "${file:$i}"
+done
