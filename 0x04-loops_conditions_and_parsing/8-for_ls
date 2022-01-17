@@ -3,14 +3,6 @@
 files=$( ls )
 for file in $files
 do
-	i=1
-	for letter in $file
-	do
-		((i++))
-		if [ "$letter" == '-' ]
-		then
-			break
-		fi
-	done
-	echo "${file:$i}"
+	splitted=(${file//-/ })
+	echo "${splitted[1]}"
 done
