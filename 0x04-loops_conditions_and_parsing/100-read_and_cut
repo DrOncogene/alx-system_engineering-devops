@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# reads and process the /etc/passwd file
+while read -r line
+do
+	echo "$line" | cut -d ":" -f 1,3,6
+done < /etc/passwd
