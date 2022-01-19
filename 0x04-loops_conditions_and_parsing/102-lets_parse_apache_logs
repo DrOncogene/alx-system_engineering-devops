@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# uses awk to print IP and status code to parse a log file
 awk '{printf "%s %s\n", $1, $9}' apache-access.log
