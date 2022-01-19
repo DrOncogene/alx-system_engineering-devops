@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # uses awk to parse a log file
-awk 'BEGIN {counts} {key = $1 " " $9; ips[key] += 1} END {asort(ips, sorted); for (i in ips) printf "%d %s\n", ips[i], i}' apache-access.log | sort -rg
+awk '{key = $1 " " $9; ips[key] += 1} END {for (i in ips) printf "%d %s\n", ips[i], i}' apache-access.log | sort -rg
