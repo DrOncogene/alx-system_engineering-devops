@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# prints all processes in user format
+# shellcheck disable=SC2009
+ps -aux --forest | grep bash
