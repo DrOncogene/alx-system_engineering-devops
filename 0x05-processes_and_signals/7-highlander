@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# runs till terminated and catch SIGTERM
+function trapsigterm()
+{
+	echo "I am invincible!!!"
+}
+trap trapsigterm SIGTERM
+
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+done

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# runs till terminated
+pkill -f "7-highlander"
