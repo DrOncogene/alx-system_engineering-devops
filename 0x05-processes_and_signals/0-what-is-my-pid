@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# prints own pid
+echo $BASHPID
+pgrep -u oncogene "bash ./0-what-is-my-pid"
