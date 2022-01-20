@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# prints all processes in user format
+ps -aux --forest
