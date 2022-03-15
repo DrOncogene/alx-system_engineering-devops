@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# configure an nginx server return a page by default
+echo 'Hello World!' > /var/www/html/index.html
