@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # configure an nginx server return a page by default
-apt update
-apt install nginx
+apt-get update
+apt-get -y install nginx
 ufw allow 'Nginx HTTP'
+ufw enable
+service nginx start
 echo 'Hello World!' > /var/www/html/index.html
 sed -i 's/8080/80/g' /etc/nginx/sites-available/default
-curl localhost
+service nginx reload
