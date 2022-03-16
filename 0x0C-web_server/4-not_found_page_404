@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# configures a url redirect at /redirect_me
+echo "Ceci n'est pas une page" > /var/www/html/error404.html
+sed -i -r 's/^(\s+)(# SSL configuration)/\1error_page 404 \/error404\.html\;\n\1\2/g' /etc/nginx/sites-available/default
+systemctl restart nginx
