@@ -37,8 +37,13 @@ file { 'nginx config file':
 }
 
 file_line { 'configure redirect':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  line   => "rewrite ^/redirect_me$ https://google.com permanent;\n# SSL configuration"
-  match  => "^\s+# SSL configuration",
+  ensure  => 'present',
+  path    => '/etc/nginx/sites-available/default',
+  line    => "rewrite ^/redirect_me$ https://google.com permanent;\n# SSL configuration"
+  match   => "^\s+# SSL configuration",
+  require => File['nginx config file'],
+}
+
+exec { 'reload nginx':
+  command => '/usr/sbin/service nginx reload',
 }
