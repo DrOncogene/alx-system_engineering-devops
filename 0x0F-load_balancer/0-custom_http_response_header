@@ -5,7 +5,7 @@ apt-get update
 apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 ufw enable
-service apache stop
+service apache2 stop
 service nginx start
 sed -i -r "s|^(\s+)(location / \{)|\1\2\n\1\1add_header X-Served-By $HOSTNAME always\;\n|g" /etc/nginx/sites-available/default
 service nginx reload
