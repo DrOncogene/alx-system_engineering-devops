@@ -3,9 +3,10 @@
 # ignore SC2154
 apt-get update
 apt-get -y install nginx
-ufw allow -y 'Nginx HTTP'
+ufw allow 'Nginx HTTP'
 ufw enable
 service nginx start
+echo "Hello World!" > /var/www/html/index.html
 sed -i -r 's/^(\s+)(# SSL configuration)/\1rewrite \^\/redirect_me\[\/\]*\$ https:\/\/google.com permanent\;\n\1\2/g' /etc/nginx/sites-available/default
 sed -i -r "s|^(\s+)(location / \{)|\1\2\n\1\1add_header X-Served-By $HOSTNAME always\;\n|g" /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" > /var/www/html/error404.html
