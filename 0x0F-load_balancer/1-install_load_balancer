@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# installs HAproxy and configures it to forward to web-01 and web-02
+apt-get install -y --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.5
+apt-get update
+apt-get install -y haproxy=2.5.\*
+lsof -t -i tcp:80 | xargs kill
+service haproxy start
+sed -i '$ a 
+frontend oncogenestudios.tech
+\tbind 127.0.0.1:80
+\tdefault_backend webservers
+backend web_servers
+\tbalance roundrobin
+\tserver web-01 44.192.32.161:80
+\tserver web-02 3.238.252.117:80\n' /etc/haproxy/haproxy.cfg
+service haproxy reload
