@@ -14,5 +14,5 @@ sed -i '$ a \
 \nbackend web_servers\
 \tbalance roundrobin\
 \tserver web-01 44.192.32.161:80\
-\tserver web-02 3.235.229.142:80\n' /etc/haproxy/haproxy.cfg
+\tserver web-02 34.139.191.175:80\n' /etc/haproxy/haproxy.cfg
 service haproxy reload
