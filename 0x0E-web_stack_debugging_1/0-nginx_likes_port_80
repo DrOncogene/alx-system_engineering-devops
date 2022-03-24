@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# fix the nginx not starting error
+sudo apt install -y lsof
+lsof -t -i tcp:8080 | xargs kill
+sudo service nginx start
