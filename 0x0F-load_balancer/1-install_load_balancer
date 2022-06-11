@@ -6,14 +6,14 @@ add-apt-repository -y ppa:vbernat/haproxy-2.5
 apt-get update
 apt-get install -y haproxy=2.5.\*
 service haproxy start
-sed -i '$ a \
-\nENABLED=1\N' /etc/default/haproxy
-sed -i '$ a \
-\nfrontend oncogenestudios.tech\
-\tbind 127.0.0.1:80\
-\tdefault_backend web_servers\
-\nbackend web_servers\
-\tbalance roundrobin\
-\tserver web-01 44.192.32.161:80\
-\tserver web-02 34.139.191.175:80\n' /etc/haproxy/haproxy.cfg
+sed -i "$ a\
+ENABLED=1\n" /etc/default/haproxy
+sed -i "$ a\
+frontend oncogenestudios.tech\n\
+\tbind 127.0.0.1:80\n\
+\tdefault_backend web_servers\n\
+\nbackend web_servers\n\
+\tbalance roundrobin\n\
+\tserver web-01 44.192.32.161:80\n\
+\tserver web-02 34.139.191.175:80\n" /etc/haproxy/haproxy.cfg
 service haproxy restart
