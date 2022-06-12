@@ -4,6 +4,9 @@
 apt-get install -y --no-install-recommends software-properties-common
 add-apt-repository -y ppa:vbernat/haproxy-2.5
 apt-get update
+apt-get install -y psmisc
+fuser -k 80/tcp
+sleep 40
 apt-get install -y haproxy=2.5.\*
 service haproxy start
 sed -i "$ a\
