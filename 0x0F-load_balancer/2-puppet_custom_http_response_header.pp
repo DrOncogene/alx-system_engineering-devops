@@ -1,5 +1,6 @@
 # configure a custom http response header
 include stdlib
+$check
 exec { 'apt-get update':
   command => '/usr/bin/apt-get update',
 }
@@ -31,7 +32,7 @@ file { 'nginx config file':
 }
 
 exec { 'custom response header':
-  command => 'sed -i -r "s|^(\s+)(location / \{)|\1\2\n\1\1add_header X-Served-By $HOSTNAME always\;\n|g" /etc/nginx/sites-available/default',
+  command => 'sudo sed -i -r "s|^(\s+)(location / \{)|\1\2\n\1\1add_header X-Served-By $HOSTNAME always\;\n|g" /etc/nginx/sites-available/default',
   require => File['nginx config file'],
 }
 
