@@ -1,6 +1,5 @@
 # configure a custom http response header
-include stdlib
-$check
+
 exec { 'apt-get update':
   command => '/usr/bin/apt-get update',
 }
