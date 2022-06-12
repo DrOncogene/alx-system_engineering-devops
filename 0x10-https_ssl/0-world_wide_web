@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# use dig to query a hostname and prints formatted info on it
+
+set -e
+
+domain=$1
+subdomain=$2
+
+dig_domains () {
+  if [ -z "$2" ]
+  then
+    uri="$1"
+  else
+    uri="$2.$1"
+  fi
+
+  dig "$uri" |
+  grep -A1 'ANSWER SECTION:' |
+  tail -n 1 |
+  awk -v subdomain="$2" '{print "The subdomain " subdomain " is a " $4 " record and points to " $5}'
+
+  return 0
+}
+
+if [ -z "$subdomain" ]
+then
+  dig_domains "$domain" "www"
+  dig_domains "$domain" "lb-01"
+  dig_domains "$domain" "web-01"
+  dig_domains "$domain" "web-02"
+else
+  dig_domains "$domain" "$subdomain"
+fi
