@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # installs HAproxy and configures it to forward to web-01 and web-02
 # shellcheck disable=SC1004
-apt-get install -y --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.5
-apt-get update
-service apache2 stop
-lsof -t -i tcp:80 | xargs kill
-apt-get install -y haproxy=2.5.\*
-service haproxy start
-sed -i "$ a\
+sudo apt-get install -y --no-install-recommends software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-2.5
+sudo apt-get update
+sudo service apache2 stop
+sudo lsof -t -i tcp:80 | xargs kill
+sudo apt-get install -y haproxy=2.5.\*
+sudo service haproxy start
+sudo sed -i "$ a\
 ENABLED=1\n" /etc/default/haproxy
-sed -i "$ a\
+sudo sed -i "$ a\
 frontend oncogenestudios.tech\n\
 \tbind 127.0.0.1:80\n\
 \tdefault_backend web_servers\n\
@@ -18,4 +18,4 @@ frontend oncogenestudios.tech\n\
 \tbalance roundrobin\n\
 \tserver web-01 44.192.32.161:80\n\
 \tserver web-02 34.139.191.175:80\n" /etc/haproxy/haproxy.cfg
-service haproxy restart
+sudo service haproxy restart
