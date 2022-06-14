@@ -9,24 +9,25 @@ sudo apt-get -y install haproxy
 DOMAIN_NAME='oncogenestudios.tech'
 INIT_FILE='/etc/default/haproxy'
 CONFIG_FILE='/etc/haproxy/haproxy.cfg'
-HAPROXY_LB_CONFIG=\
+LB_CONFIG=\
 "
-#--$DOMAIN_NAME-params-begin--
+#--$DOMAIN_NAME-begin--
 backend $DOMAIN_NAME
 	balance roundrobin
-	server web-01 44.192.32.161:80 check
-	server web-02 34.139.191.175:80 check
+	server web-01 3.227.253.148:80 check
+	server web-02 34.239.157.161:80 check
+
 frontend $DOMAIN_NAME
 	bind *:80
 	mode http
 	default_backend $DOMAIN_NAME
-#--$DOMAIN_NAME-params-end--
+#--$DOMAIN_NAME-end--
 "
 
 [ -f "$INIT_FILE" ] || touch "$INIT_FILE"
 [ -f "$CONFIG_FILE" ] || touch "$CONFIG_FILE"
 
-CONFIG_WORDS=$(grep -Eco "$DOMAIN_NAME" < $CONFIG_FILE)
+CONFIG_EXIST=$(grep -Eco "$DOMAIN_NAME" < $CONFIG_FILE)
 
 if [ "$(grep -Eco '^ENABLED=[01]$' < $INIT_FILE)" -gt 0 ]; then
 	sed -i 's/^ENABLED=0$/ENABLED=1/' "$INIT_FILE"
@@ -34,17 +35,17 @@ else
 	echo 'ENABLED=1' >> $INIT_FILE
 fi
 
-if [ "$CONFIG_WORDS" -eq 0 ]; then
-	echo -e "$HAPROXY_LB_CONFIG" >> $CONFIG_FILE
+if [ "$CONFIG_EXIST" -eq 0 ]; then
+	echo -e "$LB_CONFIG" >> $CONFIG_FILE
 else
-	start_tkn="#--$DOMAIN_NAME-params-begin--"
-	end_tkn="#--$DOMAIN_NAME-params-end--"
-	a=$(grep -onE "$start_tkn" < "$CONFIG_FILE" | cut -d : -f1)
-	b=$(grep -onE "$end_tkn" < "$CONFIG_FILE" | cut -d : -f1)
+	start="#--$DOMAIN_NAME-begin--"
+	end="#--$DOMAIN_NAME-end--"
+	a=$(grep -onE "$start" < "$CONFIG_FILE" | cut -d : -f1)
+	b=$(grep -onE "$end" < "$CONFIG_FILE" | cut -d : -f1)
 	a=$((a - 1))
 	b=$((b + 1))
 	sed -i "$a,$b"d "$CONFIG_FILE"
-	echo -en "$HAPROXY_LB_CONFIG" >> $CONFIG_FILE
+	echo -en "$LB_CONFIG" >> $CONFIG_FILE
 fi
 
 if [ "$(pgrep -c haproxy)" -le 0 ]; then

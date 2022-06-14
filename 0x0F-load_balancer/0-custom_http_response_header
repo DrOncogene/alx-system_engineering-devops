@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# configures a url redirect at /redirect_me
+# configures a custom http header
 # ignore SC2154
 apt-get update
 apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-ufw enable
-service apache2 stop
+yes | ufw allow 'Nginx HTTP'
+yes | ufw enable
 lsof -t -i tcp:80 | xargs kill
 service nginx start
-sed -i -r "s|^(\s+)(location / \{)|\1\2\n\1\1add_header X-Served-By $HOSTNAME always\;\n|g" /etc/nginx/sites-available/default
+
+line=$( grep -Eno "^\s*location / {" /etc/nginx/sites-available/default | cut -d : -f 1)
+
+sed -i "$line a\ \t\tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
+
 service nginx reload
