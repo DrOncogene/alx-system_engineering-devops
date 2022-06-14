@@ -8,8 +8,8 @@ yes | ufw enable
 lsof -t -i tcp:80 | xargs kill
 service nginx start
 
-line=$( grep -Eno "^\s*location / {" /etc/nginx/sites-available/default | cut -d : -f 1)
+line=$( grep -Eno "^\s*listen \[::\]:80 default_server;" /etc/nginx/sites-available/default | cut -d : -f 1)
 
-sed -i "$line a\ \t\tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
+sed -i "$line a\ \tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
 
 service nginx reload
