@@ -14,7 +14,7 @@ EXIST=$(grep -Eco "^\s*location /hbnb_static {" /etc/nginx/sites-available/defau
 
 if [ "$EXIST" -le 0 ]
 then
-    sed -i "$line a\ \tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
+    sed -i "$LINE a\ \tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
 fi
 
 service nginx reload
