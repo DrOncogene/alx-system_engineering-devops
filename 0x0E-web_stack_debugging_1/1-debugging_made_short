@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # fix the nginx not starting error
-sed -Ei -e "s|^\s*listen 8080|\tlisten 80|g" -e "s|^\s*listen \[::\]:8080|\tlisten \[::\]:80|g" /etc/nginx/sites-enabled/default
-service nginx stop
-service nginx start
+sed -Ei -e "s|8080|80|g" /etc/nginx/sites-enabled/default
+service nginx restart
+rm -f /var/run/nginx.pid
