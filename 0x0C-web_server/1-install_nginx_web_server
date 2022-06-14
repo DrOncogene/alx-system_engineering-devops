@@ -2,9 +2,13 @@
 # configure an nginx server return a page by default
 apt-get update
 apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-ufw enable
-service nginx start
+
+yes | ufw allow 'Nginx HTTP'
+yes | ufw enable
+
+sudo service nginx start
+
 echo 'Hello World!' > /var/www/html/index.html
-sed -i 's/8080/80/g' /etc/nginx/sites-available/default
-service nginx reload
+sudo sed -i 's/8080/80/g' /etc/nginx/sites-available/default
+
+sudo service nginx reload
