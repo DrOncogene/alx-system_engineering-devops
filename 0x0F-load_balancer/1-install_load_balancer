@@ -2,7 +2,7 @@
 # installs HAproxy and configures it to forward to web-01 and web-02
 sudo apt-get update
 sudo apt-get -y install --no-install-recommends software-properties-common
-sudo add-apt-repository -y ppa:vbernat/haproxy-2.4
+sudo add-apt-repository -y ppa:vbernat/haproxy-2.5
 sudo apt-get -y install haproxy
 
 # the load balancer's configuration
@@ -14,8 +14,8 @@ LB_CONFIG=\
 #--$DOMAIN_NAME-begin--
 backend $DOMAIN_NAME
 	balance roundrobin
-	server web-01 3.227.253.148:80 check
-	server web-02 34.239.157.161:80 check
+	server web-01 3.236.69.47:80 check
+	server web-02 34.204.206.251:80 check
 
 frontend $DOMAIN_NAME
 	bind *:80
@@ -47,6 +47,8 @@ else
 	sed -i "$a,$b"d "$CONFIG_FILE"
 	echo -en "$LB_CONFIG" >> $CONFIG_FILE
 fi
+
+fuser -k 80/tcp
 
 if [ "$(pgrep -c haproxy)" -le 0 ]; then
 	service haproxy start
