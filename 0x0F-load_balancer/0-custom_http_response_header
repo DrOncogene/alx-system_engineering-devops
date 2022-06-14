@@ -8,8 +8,13 @@ yes | ufw enable
 lsof -t -i tcp:80 | xargs kill
 service nginx start
 
-line=$( grep -Eno "^\s*listen \[::\]:80 default_server;" /etc/nginx/sites-available/default | cut -d : -f 1)
+LINE=$( grep -Eno "^\s*listen \[::\]:80 default_server;" /etc/nginx/sites-available/default | cut -d : -f 1)
 
-sed -i "$line a\ \tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
+EXIST=$(grep -Eco "^\s*location /hbnb_static {" /etc/nginx/sites-available/default)
+
+if [ "$EXIST" -le 0 ]
+then
+    sed -i "$line a\ \tadd_header X-Served-By $HOSTNAME always\;" /etc/nginx/sites-available/default
+fi
 
 service nginx reload
