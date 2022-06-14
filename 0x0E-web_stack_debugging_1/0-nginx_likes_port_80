@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 # fix the nginx not starting error
+
+sudo sed -Ei "s|^\s*listen 8080|\tlisten 80 default_server;|g" /etc/nginx/sites-enabled/default
+
+sudo sed -Ei "s|^\s*listen \[::\]:8080|\tlisten \[::\]:80 ipv6only=on default_server|g" /etc/nginx/sites-enabled/default
 sudo pkill -f nginx & wait $!
 sudo service nginx start
