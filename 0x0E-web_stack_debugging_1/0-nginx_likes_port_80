@@ -9,6 +9,6 @@ if [ "$listen" -eq 0 ]
 then
     sudo sed -Ei "/^\s*server {/ a\ \tlisten 80 default_server;" /etc/nginx/sites-available/default
 fi
-
-sudo service nginx start
-sudo service nginx reload
+sudo sed -Ei "s|^\s*listen \[::\]:80|\tlisten \[::\]:80 ipv6only=on default_server|g" /etc/nginx/sites-available/default
+sudo pkill -f nginx & wait $!
+sudo systemctl start nginx
