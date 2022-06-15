@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """gets todo info and export it to a csv file"""
-import csv
 import requests
 import sys
 
@@ -14,7 +13,6 @@ def export_todo(id):
     user_name = user["username"]
     file_name = "{}.csv".format(id)
     with open(file_name, "w") as f:
-        writer = csv.writer(f)
         for todo in todos:
             row = '"{}","{}","{}","{}"\n'.format(
                 id,
