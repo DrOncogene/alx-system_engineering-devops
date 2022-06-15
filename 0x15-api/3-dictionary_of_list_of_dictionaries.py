@@ -14,14 +14,14 @@ def export_all_to_JSON():
         uid = user["id"]
         url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(uid)
         todos = requests.get(url).json()
-        user_dict = {uid: []}
+        user_todo_list = []
         for todo in todos:
             todo_dict = {}
             todo_dict["username"] = user["username"]
             todo_dict["task"] = todo["title"]
             todo_dict["completed"] = todo["completed"]
-            user_dict[uid].append(todo_dict)
-        all_users_todos[uid] = user_dict
+            user_todo_list.append(todo_dict)
+        all_users_todos[uid] = user_todo_list
 
     with open(file_name, "w") as f:
         json.dump(all_users_todos, f)
