@@ -11,15 +11,18 @@ def export_todo(id):
     user = requests.get(user_url).json()
     todo_url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(id)
     todos = requests.get(todo_url).json()
-    user_name = user["name"]
+    user_name = user["username"]
     file_name = "{}.csv".format(id)
     with open(file_name, "w") as f:
         writer = csv.writer(f)
         for todo in todos:
-            row = [id, user_name]
-            row.append(todo["completed"])
-            row.append(todo["title"])
-            writer.writerow(row)
+            row = '"{}","{}","{}","{}"\n'.format(
+                id,
+                user_name,
+                str(todo["completed"]),
+                todo["title"]
+            )
+            f.write(row)
 
 
 if __name__ == "__main__":
