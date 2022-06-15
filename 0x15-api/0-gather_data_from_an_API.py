@@ -4,11 +4,11 @@ import requests
 import sys
 
 
-def todo_info(user_id):
+def todo_info(id):
     """prints todo info"""
-    user_url = "https://jsonplaceholder.typicode.com/users/{}".format(user_id)
+    user_url = "https://jsonplaceholder.typicode.com/users/{}".format(id)
     user = requests.get(user_url).json()
-    todo_url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(user_id)
+    todo_url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(id)
     todos = requests.get(todo_url).json()
     completed = [todo for todo in todos if todo["completed"]]
     print("Employee {} is done with tasks({}/{}):".format(
