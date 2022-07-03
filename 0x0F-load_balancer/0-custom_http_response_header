@@ -4,6 +4,7 @@
 apt-get update
 apt-get -y install nginx
 yes | ufw allow 'Nginx HTTP'
+yes | ufw allow 'OpenSSH'
 yes | ufw enable
 lsof -t -i tcp:80 | xargs kill
 service nginx start
