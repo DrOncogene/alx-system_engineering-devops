@@ -1,0 +1,9 @@
+#!/bin/bash
+# creates a database backup dump using mysqldump
+
+DB_PWD="$1"
+
+mysqldump --all-databases -uroot -p"$DB_PWD" > backup.sql
+
+ARCHIVE_NAME="$(date +'%d-%m-%Y').tar.gz"
+tar -zcf "$ARCHIVE_NAME" backup.sql 
