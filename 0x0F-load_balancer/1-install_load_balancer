@@ -14,8 +14,8 @@ LB_CONFIG=\
 #--$DOMAIN_NAME-begin--
 backend $DOMAIN_NAME
 	balance roundrobin
-	server web-01 3.236.69.47:80 check
-	server web-02 34.204.206.251:80 check
+	server web-01 3.234.213.52:80 check
+	server web-02 3.238.119.141:80 check
 
 frontend $DOMAIN_NAME
 	bind *:80
