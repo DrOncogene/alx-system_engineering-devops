@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# gracefully restarts gunicorn
+
+PID=$( ps aux | grep gunicorn | grep -m 1 2-hbnb | awk '{print $2}' )
+sudo kill -HUP "$PID"
