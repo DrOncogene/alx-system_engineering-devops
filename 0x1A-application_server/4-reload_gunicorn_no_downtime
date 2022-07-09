@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # gracefully restarts gunicorn
 
-PID=$( ps aux | grep gunicorn | grep -m 1 2-hbnb | awk '{print $2}' )
+PID=$( pgrep -f 2-hbnb | head -1 )
 sudo kill -HUP "$PID"
