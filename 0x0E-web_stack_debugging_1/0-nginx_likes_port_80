@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # fix the nginx not starting error
-sudo sed -Ei -e "s|8080|80|g" /etc/nginx/sites-enabled/default
-sudo sed -Ei -e "s|8080|80|g" /etc/nginx/sites-available/default
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
